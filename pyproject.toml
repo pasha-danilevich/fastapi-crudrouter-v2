@@ -1,0 +1,19 @@
+[project]
+name = "fastapi-crudrouter-v2"
+version = "0.1.0"
+description = "A dynamic FastAPI router that automatically creates CRUD routes for your models"
+authors = [
+    {name = "pasha_danilevich",email = "danilevitch.pasha@yandex.ru"}
+]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.9, <4.0"
+
+[tool.poetry.group.dev.dependencies]
+
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

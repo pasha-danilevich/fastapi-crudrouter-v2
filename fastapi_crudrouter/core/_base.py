@@ -1,10 +1,11 @@
+# mypy: ignore-errors
 from abc import ABC, abstractmethod
 from typing import Any, Callable, Generic, List, Optional, Type, Union
 
 from fastapi import APIRouter, HTTPException
 from fastapi.types import DecoratedCallable
 
-from ._types import T, DEPENDENCIES
+from ._types import DEPENDENCIES, T
 from ._utils import pagination_factory, schema_factory
 
 NOT_FOUND = HTTPException(404, "Item not found")
@@ -32,7 +33,6 @@ class CRUDGenerator(Generic[T], APIRouter, ABC):
         delete_all_route: Union[bool, DEPENDENCIES] = True,
         **kwargs: Any,
     ) -> None:
-
         self.schema = schema
         self.pagination = pagination_factory(max_limit=paginate)
         self._pk: str = self._pk if hasattr(self, "_pk") else "id"

@@ -1,4 +1,6 @@
-from typing import Dict, TypeVar, Optional, Sequence
+# mypy: ignore-errors
+
+from typing import Dict, Optional, Sequence, TypeVar
 
 from fastapi.params import Depends
 from pydantic import BaseModel

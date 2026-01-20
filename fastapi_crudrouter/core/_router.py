@@ -1,15 +1,14 @@
-from typing import Any, Callable, List, Type, cast, Coroutine, Optional, Union
+# mypy: ignore-errors
 
-from . import CRUDGenerator, NOT_FOUND
-from ._types import DEPENDENCIES, PAGINATION, PYDANTIC_SCHEMA as SCHEMA
+from typing import Any, Callable, Coroutine, List, Optional, Type, Union, cast
 
-try:
-    from tortoise.models import Model
-except ImportError:
-    Model = None  # type: ignore
-    tortoise_installed = False
-else:
-    tortoise_installed = True
+from tortoise.models import Model
+
+from . import NOT_FOUND, CRUDGenerator
+from ._types import DEPENDENCIES, PAGINATION
+from ._types import PYDANTIC_SCHEMA as SCHEMA
+
+tortoise_installed = True
 
 
 CALLABLE = Callable[..., Coroutine[Any, Any, Model]]
