@@ -10,8 +10,6 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = ">=3.9, <4.0"
 
-[tool.poetry.group.dev.dependencies]
-
 
 
 [build-system]
