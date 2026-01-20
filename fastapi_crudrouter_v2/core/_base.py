@@ -31,6 +31,7 @@ class CRUDGenerator(Generic[T], APIRouter, ABC):
         update_route: Union[bool, DEPENDENCIES] = True,
         delete_one_route: Union[bool, DEPENDENCIES] = True,
         delete_all_route: Union[bool, DEPENDENCIES] = True,
+        trailing_slash: bool = True,
         **kwargs: Any,
     ) -> None:
         self.schema = schema
@@ -50,12 +51,14 @@ class CRUDGenerator(Generic[T], APIRouter, ABC):
         prefix = str(prefix if prefix else self.schema.__name__).lower()
         prefix = self._base_path + prefix.strip("/")
         tags = tags or [prefix.strip("/").capitalize()]
+        path = "/" if trailing_slash else ""
+        path_param = "/{item_id}" + path
 
         super().__init__(prefix=prefix, tags=tags, **kwargs)
 
         if get_all_route:
             self._add_api_route(
-                "",
+                path,
                 self._get_all(),
                 methods=["GET"],
                 response_model=Optional[List[self.schema]],  # type: ignore
@@ -65,7 +68,7 @@ class CRUDGenerator(Generic[T], APIRouter, ABC):
 
         if create_route:
             self._add_api_route(
-                "",
+                path,
                 self._create(),
                 methods=["POST"],
                 response_model=self.schema,
@@ -75,7 +78,7 @@ class CRUDGenerator(Generic[T], APIRouter, ABC):
 
         if delete_all_route:
             self._add_api_route(
-                "",
+                path,
                 self._delete_all(),
                 methods=["DELETE"],
                 response_model=Optional[List[self.schema]],  # type: ignore
@@ -85,7 +88,7 @@ class CRUDGenerator(Generic[T], APIRouter, ABC):
 
         if get_one_route:
             self._add_api_route(
-                "/{item_id}",
+                path_param,
                 self._get_one(),
                 methods=["GET"],
                 response_model=self.schema,
@@ -96,7 +99,7 @@ class CRUDGenerator(Generic[T], APIRouter, ABC):
 
         if update_route:
             self._add_api_route(
-                "/{item_id}",
+                path_param,
                 self._update(),
                 methods=["PUT"],
                 response_model=self.schema,
@@ -107,7 +110,7 @@ class CRUDGenerator(Generic[T], APIRouter, ABC):
 
         if delete_one_route:
             self._add_api_route(
-                "/{item_id}",
+                path_param,
                 self._delete_one(),
                 methods=["DELETE"],
                 response_model=self.schema,

@@ -1,6 +1,6 @@
 [project]
 name = "fastapi-crudrouter-v2"
-version = "0.1.0"
+version = "0.1.2"
 description = "A dynamic FastAPI router that automatically creates CRUD routes for your models"
 authors = [
     {name = "pasha_danilevich",email = "danilevitch.pasha@yandex.ru"}
